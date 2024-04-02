@@ -6,35 +6,25 @@ const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
 
-// HackerNews1つ1つの投稿
-let links = [
-  {
-    id: 'link-0',
-    description: 'GraphQLチュートリアルをUdemyで学ぶ',
-    url: 'www.udemy-graphql-tutorial.com',
-  },
-];
-
 // リゾルバ関数
 const resolvers = {
   Query: {
     info: () => 'HackerNewsクローン',
-    feed: () => links,
+    feed: async (parent, args, context) => {
+      return context.prisma.link.findMany();
+    },
   },
 
   Mutation: {
     // argsは引数のこと
-    post: (parent, args) => {
-      let idCount = links.length;
-
-      const link = {
-        id: `link-${idCount++}`,
-        description: args.description,
-        url: args.url,
-      };
-
-      links.push(link);
-      return link;
+    post: (parent, args, context) => {
+      const newLink = context.prisma.link.create({
+        data: {
+          urs: args.url,
+          description: args.description,
+        },
+      });
+      return newLink;
     },
   },
 };
