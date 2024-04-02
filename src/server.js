@@ -20,7 +20,7 @@ const resolvers = {
     post: (parent, args, context) => {
       const newLink = context.prisma.link.create({
         data: {
-          urs: args.url,
+          url: args.url,
           description: args.description,
         },
       });
