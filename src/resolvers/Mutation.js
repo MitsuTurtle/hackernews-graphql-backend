@@ -45,3 +45,13 @@ async function login(parent, prgs, context) {
     user,
   };
 }
+
+// ニュースを投稿するリゾルバ
+async function post(parent, prgs, context) {
+  return await context.prisma.link.create({
+    data: {
+      url: args.url,
+      description: args.description,
+    },
+  });
+}
