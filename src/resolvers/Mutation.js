@@ -47,7 +47,7 @@ async function login(parent, prgs, context) {
 }
 
 // ニュースを投稿するリゾルバ
-async function post(parent, prgs, context) {
+async function post(parent, args, context) {
   return await context.prisma.link.create({
     data: {
       url: args.url,
