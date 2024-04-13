@@ -1,6 +1,6 @@
 # GraphQLスキーマの定義
 type Query {
-  info: String!
+  # info: String!
   feed: [Link]!
 }
 
